@@ -5,11 +5,10 @@ class EmployeePayrollData{
         return this._name;
     }
     set name(name) {
-        // let nameRgx = RegExp('^[A-Z]{1}[a-zA-Z]{2,}$');
-        // if (nameRgx.test(name))
-        //     this._name = name;
-        // else throw 'Name is Incorrect!';
-        this._name = name;
+        let nameRgx = RegExp('^[A-Z]{1}[a-zA-Z]{2,}$');
+        if (nameRgx.test(name))
+            this._name = name;
+        else throw 'Name is Incorrect!';
     }
     get profilePicture() {
         return this._profilePicture;
