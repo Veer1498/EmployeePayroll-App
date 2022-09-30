@@ -53,15 +53,12 @@ class EmployeePayrollData{
     set startDate(startDate) {
         let now = new Date();
         let difference = Math.round(now - startDate);
-        if (startDate > now){
-            throw "Start Date is a Futute Date!"
+        if (startDate > now && difference > 30){
+            throw "Start Date is Not in Range!"
         }
         
-        else if (difference > 30) {
-            throw "Start Date is beyond 30 days!"
-        }
         else{ 
-            this._startDate = startDate.toLocaleDateString('en-US');
+            this._startDate = startDate
         }
     }
     get notes(){
@@ -133,27 +130,68 @@ function save(){
    let empMonth = empStartMonth.value;
    let empStartYear = document.querySelector("#year option:checked")
    let empYear = empStartYear.value;
-   let empDate = Date.parse(empDay+" "+empMonth+" "+empYear)
+   let empDate = (empDay+" "+empMonth+" "+empYear)
 
    //Notes
    let empNotes = document.querySelector('#notes')
    let empNote = empNotes.value;
+
 // Creating Employee Object
    let empPayrollDataObject = new EmployeePayrollData(empNam,empImage,empGender,empDepartment,empSal,empDate,empNote)
+//    console.log("Data Object")
+//    console.log(empPayrollDataObject)
+try{
+    saveToLocalStorage(empPayrollDataObject)
 
-   saveToLocalStorage(empPayrollDataObject)
 }
-
+catch(e){
+    console.log(e)
+}
+   ShowLocalStorage();
+}
+//UC - 3 Day 44
 function saveToLocalStorage(empPayrollDataObject){
-    let employeePayrollList = JSON.parse(localStorage.getItem("EmployeePayrollList"));
-    if(employeePayrollList != undefined){
-        employeePayrollList.push(empPayrollDataObject);
-    }
-    else{
-        employeePayrollList = [empPayrollDataObject]
-    }
+    let employeePayrollList = [];
+    // employeePayrollList = JSON.parse(localStorage.getItem("EmployeePayrollList"));
+    employeePayrollList.push(empPayrollDataObject);
     alert(employeePayrollList.toString());
     localStorage.setItem("EmployeePayrollList",JSON.stringify(employeePayrollList))
+
+}
+
+function ShowLocalStorage(){
+    let empList = JSON.parse(localStorage.getItem("EmployeePayrollList"));
+    alert(empList.toString());
+}
+
+window.addEventListener('DOMContentLoaded',(event)=>{
+    // alert("Calling")
+    createInnerHtml();
+});
+
+//Template Literals
+const createInnerHtml=() =>{
+    const headerHTML ="<tr><th></th><th>Name</th><th>Gender</th><th>Department</th>"+
+                        "<th>Salary</th><th>Start Date</th><th>Actions</th></tr>";
+    const innerHTML = `${headerHTML}
+        <tr>
+            <td><img class="profile" alt="" src="../assets/profile-images/Ellipse -2.png"></td>
+            <td>Veerendra</td>
+            <td>Male</td>
+            <td><div class="dept-label">HR</div>
+            <div class="dept-label">Finance</div>
+            </td>
+            <td>25000</td>
+            <td>20 Sep 2022</td>
+            <td>
+                <img id="1" onclick="remove(this)" alt="delete"
+                src="../assets/icons/delete-black-18dp.svg">
+                <img id="1" onclick="update(this)" alt="edit"
+                src="../assets/icons/create-black-18dp.svg"> 
+            </td>
+        </tr>
+        `;
+    document.querySelector('#display').innerHTML = innerHTML;
 }
 
 
