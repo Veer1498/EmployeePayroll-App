@@ -17,14 +17,14 @@
                     </div>    
             </header>
             <div class="form-content">
-                <form class="form" action="#">
+                <form class="form" name="myForm" action=""  onsubmit="save()">
                     <div class="form-head">
                         EMPLOYEE PAYROLL FORM
                     </div>
                     <div class="row-content">
                         <label class ="label text" for="name">NAME</label>
-                        <input class = "input" type="txt" name="name" id="name" placeholder="your Name.." required> 
-                        
+                        <input class = "input" type="txt"  name="name" pattern ="[A-Z]{1}[a-zA-Z \\w]{2,}" id="name" placeholder="your Name.." required> 
+                        <label class ="error-output" for="name">*Start With Capital Letter</label>
                     </div>
                     <div class="row-content">
                         <label class="label text" for="profile">Profile Image</label>
@@ -67,19 +67,19 @@
                     <div class="row-content">
                         <label class ="label text" for="department" >Department </label>
                         <div class="dept-radio-content">
-                            <input type="checkbox" id="hr" name="hr" value="hr">
+                            <input type="checkbox" id="hr" name="department" value="hr">
                             <label class="text" for="hr"> HR </label>
 
-                            <input type="checkbox" id="Sales" name="Sales" value="Sales">
+                            <input type="checkbox" id="Sales" name="department" value="Sales">
                             <label class="text" for="Sales"> Sales </label>
 
-                            <input type="checkbox" id="Finance" name="Finance" value="Finance">
+                            <input type="checkbox" id="Finance" name="department" value="Finance">
                             <label class="text" for="Finance"> Finance </label>
 
-                            <input type="checkbox" id="Engineer" name="Engineer" value="Engineer">
+                            <input type="checkbox" id="Engineer" name="department" value="Engineer">
                             <label class="text" for="Engineer"> Engineer </label>
 
-                            <input type="checkbox" id="Others" name="Others" value="Others">
+                            <input type="checkbox" id="Others" name="department" value="Others">
                             <label class="text" for="Others"> Others </label>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                     </div>
                     <div class="row-content">
                         <label class="label text" for="startDate">Start Date</label>
-                        <div>
+                        <div id="date">
                             <select id="day" name="Day">
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -124,7 +124,7 @@
                                 <option value="30">30</option>
                             </select>
 
-                            <select id="day" name="Day">
+                            <select id="month" name="Month">
                                 <option value="Jan">January</option>
                                 <option value="Feb">Febraury</option>
                                 <option value="Mar">March</option>
@@ -160,6 +160,7 @@
                     </div>
                 </form> 
             </div>
+            <script src="../javascript/EmployeePayroll.js"></script>
             <script>
                 const salary = document.querySelector('#salary');
                 const output = document.querySelector('.salary-output');
@@ -169,7 +170,7 @@
                 output.textContent=salary.value;
                 })
             </script>
-            <script src="../javascript/EmployeePayroll.js"></script>
+            
     </body>
 </html>     
- 
+    
